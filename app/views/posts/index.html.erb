@@ -1,0 +1,29 @@
+<h1>All Posts</h1>
+<% if user_signed_in? %>
+  <% if Post.all.empty? %>
+    <p>No Posts Available</p>
+
+  <% else %>
+    <% Post.all.each do |post| %>
+      <h3>
+        <%= post.title %>
+      </h3>
+      <p>
+        <%= post.body %>
+      <p>
+      <p><%= post.user.email %></p>
+    <% end %>
+  <% end %>
+  <%= link_to "Create Post", new_post_path %>
+  <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+<% else %>
+  <h2>Sign in if you want to see the authors</h2>
+  <% Post.all.each do |post| %>
+      <h3><%= post.title %></h3>
+      <p><%= post.body %><p>
+    <% end %>
+  <%= link_to "Sign  Up", new_user_registration_path %><br>
+
+  <p>If you're already a member, <%= link_to 'Sign in', user_session_path %></p>
+  
+<% end %>
